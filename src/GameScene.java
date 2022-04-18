@@ -45,6 +45,10 @@ public class GameScene extends JPanel {
         paintBord(g);
         this.player.paint(g, this.player.getX(), this.player.getY());
         this.enemy.paint(g);
+        this.player.setNinja( new ImageIcon("ninja.png"));
+        this.player.getNinja().paintIcon(this,g,this.player.getX(),this.player.getY());
+        this.enemy.setShurikan(new ImageIcon("shuriken.png"));
+        this.enemy.getShurikan().paintIcon(this,g,this.enemy.getX(),this.enemy.getY());
     }
 
     private void movePlayer() { //תזוזת שחקן

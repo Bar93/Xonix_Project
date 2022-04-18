@@ -1,8 +1,10 @@
+import javax.swing.*;
 import java.awt.*;
 
 public class Enemy {
     private int x;
     private int y;
+    private ImageIcon shurikan;
     public static final int WIDTH_ENEMY = 10;
     public static final int HEIGHT_ENEMY = 10;
 
@@ -36,4 +38,11 @@ public class Enemy {
         return y;
     }
 
+    public ImageIcon getShurikan() {
+        return shurikan;
+    }
+
+    public void setShurikan(ImageIcon shurikan) {
+        this.shurikan = shurikan;
+    }
 }

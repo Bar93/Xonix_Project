@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -10,12 +11,14 @@ public class Player extends Brick implements KeyListener {
     public static final int HEIGHT = 10;
     boolean inMotion;
     ArrayList<Brick> tail;
+    private ImageIcon ninja;
 
 
     public Player(int kind, int x, int y) {
         super(kind, x, y);
         inMotion = false;
         tail = new ArrayList<>();
+
 
     }
 
@@ -27,6 +30,7 @@ public class Player extends Brick implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             if (this.x < GameScene.GAME_SCENE_WIDTH - 10) {
                     this.x += 10;
+
 
             }
         }
@@ -68,6 +72,13 @@ public class Player extends Brick implements KeyListener {
         this.tail = tail;
     }
 
+    public ImageIcon getNinja() {
+        return ninja;
+    }
+
+    public void setNinja(ImageIcon ninja) {
+        this.ninja = ninja;
+    }
 
     public boolean checkTail() {
         boolean ans = false;
