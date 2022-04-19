@@ -4,22 +4,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Set;
 
 public class Player extends Brick implements KeyListener {
 
 
-    public static final int HEIGHT = 10;
+
     boolean inMotion;
     ArrayList<Brick> tail;
     private ImageIcon ninja;
+    public static final int PLAYER_HEIGHT = 10;
 
 
     public Player(int kind, int x, int y) {
         super(kind, x, y);
         inMotion = false;
         tail = new ArrayList<>();
-
-
     }
 
     public void keyTyped(KeyEvent e) {
@@ -29,9 +29,7 @@ public class Player extends Brick implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             if (this.x < GameScene.GAME_SCENE_WIDTH - 10) {
-                    this.x += 10;
-
-
+                this.x += 10;
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -51,6 +49,7 @@ public class Player extends Brick implements KeyListener {
             }
         }
     }
+
 
     public void keyReleased(KeyEvent e) {
 

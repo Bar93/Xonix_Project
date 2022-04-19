@@ -1,10 +1,12 @@
+import javax.swing.*;
 import java.awt.*;
 
-public class Brick  {
+public class Brick extends Component {
 
     protected int kind;
     protected int x;
     protected int y;
+    protected ImageIcon imageBrick;
     public static final int WIDTH=10;
     public static final int HEIGHT =10;
     public static final int EMPTY_BRICK=1;
@@ -19,14 +21,18 @@ public class Brick  {
         this.kind = kind;
         this.x = x;
         this.y = y;
+
+
     }
 
     public void paint (Graphics g,int x,int y){
         if (this.kind == FULL_BRICK){
             g.setColor(Color.BLACK);
+
         }
         if (this.kind == EMPTY_BRICK){
             g.setColor(Color.CYAN);
+
         }
         if (this.kind == TEMP_BRICK)
         {
@@ -37,6 +43,7 @@ public class Brick  {
             g.setColor(Color.green);
         }
             g.fillRect(x, y, WIDTH, HEIGHT);
+
 
     }
 
@@ -62,5 +69,13 @@ public class Brick  {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public ImageIcon getImageBrick() {
+        return imageBrick;
+    }
+
+    public void setImageBrick(ImageIcon imageBrick) {
+        this.imageBrick = imageBrick;
     }
 }

@@ -15,10 +15,14 @@ public class GameScene extends JPanel {
     public static final int COL = 60;
     public static final int FILL_FROM_OUT = 1;
     public static final int FILL_FROM_INSIDE = 2;
-    public static final int FILL_FROM_LEFT = 1;
-    public static final int FILL_FROM_RIGHT = 2;
-    public static final int FILL_FROM_UP = 3;
-    public static final int FILL_FROM_DOWN = 4;
+    public static final int UP_LEFT = 1;
+    public static final int UP_RIGHT = 2;
+    public static final int DOWN_LEFT = 3;
+    public static final int DOWN_RIGHT = 4;
+    public static final int LEFT_UP = 5;
+    public static final int RIGHT_UP = 6;
+    public static final int LEFT_DOWN = 7;
+    public static final int RIGHT_DOWN = 8;
     public static final double LEVEL_ONE = 0.1;
 
 
@@ -46,9 +50,9 @@ public class GameScene extends JPanel {
         this.player.paint(g, this.player.getX(), this.player.getY());
         this.enemy.paint(g);
         this.player.setNinja( new ImageIcon("ninja.png"));
-        this.player.getNinja().paintIcon(this,g,this.player.getX(),this.player.getY());
-        this.enemy.setShurikan(new ImageIcon("shuriken.png"));
-        this.enemy.getShurikan().paintIcon(this,g,this.enemy.getX(),this.enemy.getY());
+        this.player.getNinja().paintIcon(this,g,this.player.getX()-10,this.player.getY()-15);
+        this.enemy.setShurikan(new ImageIcon("shriken1.png"));
+        this.enemy.getShurikan().paintIcon(this,g,this.enemy.getX()-400,this.enemy.getY()-100);
     }
 
     private void movePlayer() { //תזוזת שחקן
@@ -188,11 +192,20 @@ public class GameScene extends JPanel {
         for (int i = 0; i < this.bord.length; i++) {
             for (int j = 0; j < this.bord[i].length; j++) {
                 this.bord[i][j].paint(g, i * 10, j * 10);
+                if (this.bord[i][j].getKind()==Brick.EMPTY_BRICK){
+                    this.bord[i][j].setImageBrick( new ImageIcon("emptybrick.jpg"));
+                    this.bord[i][j].getImageBrick().paintIcon(this.bord[i][j],g,i*10,j*10);
+                }
+                if (this.bord[i][j].getKind()==Brick.FULL_BRICK){
+                    this.bord[i][j].setImageBrick( new ImageIcon("fullbrick.jpg"));
+                    this.bord[i][j].getImageBrick().paintIcon(this.bord[i][j],g,i*10,j*10);
+                }
             }
         }
+
     }
 
-    public void update(){
+    public void updateBordTail(){
         int index = 0;
         int tailSize = this.player.getTail().size();
         while (index<tailSize){
@@ -205,86 +218,128 @@ public class GameScene extends JPanel {
     }
 
     public void updateBord() {
-        update();
-        //int type = fillMethod();
+        updateBordTail();
         int startX = this.player.getTail().get(0).getX();
         int startY = this.player.getTail().get(0).getY();
         int endX = this.player.getTail().get(this.player.getTail().size() - 1).getX();
         int endY = this.player.getTail().get(this.player.getTail().size() - 1).getY();
-        System.out.println(startX+","+startY+","+endX+","+endY);
-        int index1=startX, index2=startY;
-              while (index1<this.bord.length){
-                  while (index2<endY) {
-                      this.bord[index1][index2].setKind(Brick.FULL_BRICK);
-                      index2++;
-                  }
-                  index1++;
-                  index2 = startY;
-                  if  (this.bord[index1][index2+1].getKind()==Brick.FULL_BRICK){
-                      this.bord[index1][index2].setKind(Brick.FULL_BRICK);
-                      break;
-                  }
-                  }
+        for (int i = 0; i < this.player.getTail().size() - 1; i++) {
+             {
+                while (this.bord[startX][startY + 1].getKind() == Brick.EMPTY_BRICK) {
+                    this.bord[startX][startY + 1].setKind(Brick.FULL_BRICK);
+                    startY++;
+                }
+                startX++;
+                startY = this.player.getTail().get(0).getY();
+            }
+//            if (this.player.getTail().get(i).getX()-this.player.getTail().get(i+1).getX()==1){
+//                while (this.bord[startX][startY+1].getKind()==Brick.EMPTY_BRICK){
+//                    this.bord[startX][startY+1].setKind(Brick.FULL_BRICK);
+//                    startY++;
+//                }
+//                startX++;
+//                startY = this.player.getTail().get(0).getY();
+//            }
+//        }
+
+
+        }
     }
 
+    public int getDirection(){
+        int directionUp=0,directionDown=0,directionRight=0,directionLeft=0;
+        int directionUp1=0,directionDown1=0,directionRight1=0,directionLeft1=0;
+        int direction=0;
+        int index=2;
+        if (this.player.getTail().get(0).getX()==this.player.getTail().get(1).getX()){
+            if (this.player.getTail().get(0).getY()>this.player.getTail().get(1).getY()){
+                directionUp=1;
+            }
+            if (this.player.getTail().get(0).getY()<this.player.getTail().get(1).getY()){
+                directionDown=1;
+            }
+            while (index<this.player.getTail().size()-1){
+                if (this.player.getTail().get(index).getX()!=this.player.getTail().get(index+1).getX()){
+                    break;
+                }
+                index++;
+            }
+            if (this.player.getTail().get(index).getX()>this.player.getTail().get(index+1).getX()){
+                directionLeft1=1;
+            }
+            if (this.player.getTail().get(index).getX()<this.player.getTail().get(index+1).getX()){
+                directionRight1=1;
+            }
+
+        }
+        if (this.player.getTail().get(0).getY()==this.player.getTail().get(1).getY()){
+            if (this.player.getTail().get(0).getX()>this.player.getTail().get(1).getX()){
+                directionLeft=1;
+            }
+            if (this.player.getTail().get(0).getX()<this.player.getTail().get(1).getX()){
+                directionRight=1;
+        }
+            while (index<this.player.getTail().size()-1){
+                if (this.player.getTail().get(index).getY()!=this.player.getTail().get(index+1).getY()){
+                    break;
+                }
+                index++;
+            }
+            if (this.player.getTail().get(index).getY()>this.player.getTail().get(index+1).getY()){
+                directionUp1=1;
+            }
+            if (this.player.getTail().get(index).getY()<this.player.getTail().get(index+1).getY()){
+                directionDown1=1;
+            }
+            }
+        if (directionDown==1 && directionLeft1==1){
+            direction = DOWN_LEFT;
+        }
+        if (directionDown==1 && directionRight1==1){
+            direction = DOWN_RIGHT;
+        }
+        if (directionUp==1 && directionRight1==1){
+            direction = UP_RIGHT;
+        }
+        if (directionUp==1 && directionLeft1==1){
+            direction = UP_LEFT;
+        }
+        if (directionLeft==1 && directionUp1==1){
+            direction = LEFT_UP;
+        }
+        if (directionLeft==1 && directionDown1==1){
+            direction = LEFT_DOWN;
+        }
+        if (directionRight==1 && directionDown1==1){
+            direction = RIGHT_DOWN;
+        }
+        if (directionRight==1 && directionUp1==1){
+            direction = RIGHT_UP;
+        }
+        return direction;
+    }
 
     public int fillMethod() {
         int type = 0;
-        int startX = this.player.getTail().get(0).getX();
-        int startY = this.player.getTail().get(0).getY();
-        int endX = this.player.getTail().get(this.player.getTail().size() - 1).getX();
-        int endY = this.player.getTail().get(this.player.getTail().size() - 1).getY();
-        int enemyX = this.enemy.getX();
-        int enemyY = this.enemy.getY();
-        if (startX == endX) {
-            if ((enemyY > startY && enemyY > endY) || (enemyY < startY && enemyY < endY)) {
-                type = FILL_FROM_INSIDE;
-            } else {
-                type = FILL_FROM_OUT;
+        int enemyX = this.enemy.getX()/10;
+        int enemyY = this.enemy.getY()/10;
+        boolean enemyPlaceX = false, enemyPlaceY = false;
+        for (int i=0;i<this.player.getTail().size();i++){
+            if (this.player.getTail().get(i).getX()==enemyX){
+                enemyPlaceX=true;
+            }
+            if (this.player.getTail().get(i).getY()==enemyY){
+                enemyPlaceY=true;
             }
         }
-        if (startY == endY) {
-            if ((enemyX > startX && enemyX > endX) || (enemyX < startX && enemyX < endX)) {
-                type = FILL_FROM_INSIDE;
-            } else {
-                type = FILL_FROM_OUT;
-            }
+        if (enemyPlaceX&&enemyPlaceY){
+            type = FILL_FROM_OUT;
         }
-        if (startX != endX && startY != endY) {
-            if ((enemyX > startX && enemyX > endX) || (enemyX < startX && enemyX < endX)) {
-                type = FILL_FROM_INSIDE;
-            } else {
-                type = FILL_FROM_OUT;
-            }
-
+        else {
+            type = FILL_FROM_INSIDE;
         }
         return type;
 
-    }
-
-    public int fillDirection() {
-        int direction = 0;
-        int startX = this.player.getTail().get(0).getX();
-        int startY = this.player.getTail().get(0).getY();
-        int endX = this.player.getTail().get(this.player.getTail().size() - 1).getX();
-        int endY = this.player.getTail().get(this.player.getTail().size() - 1).getY();
-            if (startX == endX) {
-                if (startY > endY) {
-                    direction = FILL_FROM_DOWN;
-                }
-                if (startY < endY) {
-                    direction = FILL_FROM_UP;
-                }
-            }
-            if (startY == endY) {
-                if (startX > endY) {
-                    direction = FILL_FROM_DOWN;
-                }
-                if (startY < endY) {
-                    direction = FILL_FROM_UP;
-                }
-            }
-return 0;
     }
 
     public void gameOver(){
@@ -322,4 +377,7 @@ return 0;
             this.add(title);
         }
     }
+
+
+
 }
