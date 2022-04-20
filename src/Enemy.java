@@ -17,7 +17,8 @@ public class Enemy {
 
     public void paint (Graphics g){
         g.fillOval(this.x,this.y,WIDTH_ENEMY, HEIGHT_ENEMY);
-        g.setColor(Color.yellow);
+        g.setColor(Color.BLACK);
+
     }
 
     public void setX(int x) {

@@ -1,59 +1,56 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Set;
 
-public class Player extends Brick implements KeyListener {
+public class Player extends Brick  {
 
 
 
     boolean inMotion;
     ArrayList<Brick> tail;
     private ImageIcon ninja;
+    int direction;
     public static final int PLAYER_HEIGHT = 10;
+    public static final int LEFT = 1;
+    public static final int RIGHT = 2;
+    public static final int UP = 3;
+    public static final int DOWN = 4;
+
+
 
 
     public Player(int kind, int x, int y) {
         super(kind, x, y);
         inMotion = false;
         tail = new ArrayList<>();
-    }
-
-    public void keyTyped(KeyEvent e) {
 
     }
 
-    public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            if (this.x < GameScene.GAME_SCENE_WIDTH - 10) {
-                this.x += 10;
-            }
+    public void moveRight (){
+        if (this.x < GameScene.GAME_SCENE_WIDTH - 10) {
+            this.x += 10;
         }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            if (this.x > 0) {
-                this.x -= 10;
-            }
+    }
+      public void moveLeft (){
+        if (this.x > 0) {
+            this.x -= 10;
+
         }
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
-            if (this.y > 0) {
-                this.y -= 10;
-            }
+
+    }
+    public void moveUp () {
+        if (this.y > 0) {
+            this.y -= 10;
         }
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+    }
+    public void moveDown()
+        {
             if (this.y < GameScene.GAME_SCENE_HEIGHT - 10) {
                 this.y += 10;
 
             }
         }
-    }
-
-
-    public void keyReleased(KeyEvent e) {
-
-    }
 
     public boolean isInMotion() {
         return inMotion;
@@ -118,6 +115,14 @@ public class Player extends Brick implements KeyListener {
 
         }
         return ans;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
 }
 

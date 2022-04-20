@@ -9,12 +9,13 @@ public class FramePanel extends JPanel {
     public FramePanel() {
         this.setBounds(0, 0, PANEL_WIDTH, PANEl_HEIGHT);
         this.setBackground(Color.BLUE);
-        JLabel title = new JLabel("Xonix");
-        title.setBounds(PANEL_WIDTH/5, 0, 0, PANEl_HEIGHT);
+        JLabel title = new JLabel("Xonix              ");
+        title.setBounds(0, 0, 100, PANEl_HEIGHT);
         Font font = new Font("Arial", Font.BOLD, PANEl_HEIGHT/2);
         title.setForeground(Color.WHITE);
         title.setFont(font);
         this.add(title);
+
     }
 }
 
