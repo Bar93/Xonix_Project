@@ -1,11 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Area;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GameScene extends JPanel {
     private Player player;
     private Enemy enemy;
     private Brick[][] bord;
+    Polygon p = new Polygon();
+
 
     public static final int GAME_SCENE_WIDTH = 600;
     public static final int GAME_SCENE_HEIGHT = 600;
@@ -203,6 +207,7 @@ public class GameScene extends JPanel {
             }
         }
 
+
     }
 
     public void updateBordTail(){
@@ -223,28 +228,188 @@ public class GameScene extends JPanel {
         int startY = this.player.getTail().get(0).getY();
         int endX = this.player.getTail().get(this.player.getTail().size() - 1).getX();
         int endY = this.player.getTail().get(this.player.getTail().size() - 1).getY();
-        for (int i = 0; i < this.player.getTail().size() - 1; i++) {
-             {
-                while (this.bord[startX][startY + 1].getKind() == Brick.EMPTY_BRICK) {
-                    this.bord[startX][startY + 1].setKind(Brick.FULL_BRICK);
-                    startY++;
+        int enemyX = this.enemy.getX();
+        int enemyY = this.enemy.getY();
+        int direction = getDirection();
+        System.out.println(direction);
+        if (direction == RIGHT_DOWN) {
+            for (int i = 0; i < this.player.getTail().size() - 1; i++) {
+                if (this.player.getTail().get(i).getX() - this.player.getTail().get(i + 1).getX() == -1) {
+                    while (this.bord[startX][startY + 1].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX][startY + 1].setKind(Brick.FULL_BRICK);
+                        startY++;
+                    }
+                    startX++;
+                    startY = this.player.getTail().get(0).getY();
+                    ;
                 }
-                startX++;
-                startY = this.player.getTail().get(0).getY();
+                if (this.player.getTail().get(i).getY() != this.player.getTail().get(i + 1).getY()) {
+                    break;
+                }
+
             }
-//            if (this.player.getTail().get(i).getX()-this.player.getTail().get(i+1).getX()==1){
-//                while (this.bord[startX][startY+1].getKind()==Brick.EMPTY_BRICK){
-//                    this.bord[startX][startY+1].setKind(Brick.FULL_BRICK);
-//                    startY++;
+        }
+        if (direction == RIGHT_UP) {
+            for (int i = 0; i < this.player.getTail().size() - 1; i++) {
+                if (this.player.getTail().get(i).getX() - this.player.getTail().get(i + 1).getX() == -1) {
+                    while (this.bord[startX][startY - 1].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX][startY - 1].setKind(Brick.FULL_BRICK);
+                        startY--;
+                    }
+                    startX++;
+                    startY = this.player.getTail().get(0).getY();
+
+                }
+                if (this.player.getTail().get(i).getY() != this.player.getTail().get(i + 1).getY()) {
+                    break;
+                }
+
+            }
+        }
+        if (direction == LEFT_DOWN) {
+            for (int i = 0; i < this.player.getTail().size() - 1; i++) {
+                if (this.player.getTail().get(i).getX() - this.player.getTail().get(i + 1).getX() == 1) {
+                    while (this.bord[startX][startY + 1].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX][startY + 1].setKind(Brick.FULL_BRICK);
+                        startY++;
+                    }
+                    startX--;
+                    startY = this.player.getTail().get(0).getY();
+
+                }
+                if (this.player.getTail().get(i).getY() != this.player.getTail().get(i + 1).getY()) {
+                    break;
+                }
+
+            }
+        }
+        if (direction == LEFT_UP) {
+            for (int i = 0; i < this.player.getTail().size() - 1; i++) {
+                if (this.player.getTail().get(i).getX() - this.player.getTail().get(i + 1).getX() == 1) {
+                    while (this.bord[startX][startY - 1].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX][startY - 1].setKind(Brick.FULL_BRICK);
+                        startY--;
+                    }
+                    startX--;
+                    startY = this.player.getTail().get(0).getY();
+
+                }
+                if (this.player.getTail().get(i).getY() != this.player.getTail().get(i + 1).getY()) {
+                    break;
+                }
+
+            }
+        }
+        if (direction == DOWN_RIGHT) {
+            for (int i = 0; i < this.player.getTail().size() - 1; i++) {
+                if (this.player.getTail().get(i).getY() - this.player.getTail().get(i + 1).getY() == -1) {
+                    while (this.bord[startX+1][startY].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX+1][startY].setKind(Brick.FULL_BRICK);
+                        startX++;
+                    }
+                    startX=this.player.getTail().get(0).getX();
+                    startY++;
+
+                }
+                if (this.player.getTail().get(i).getX() != this.player.getTail().get(i + 1).getX()) {
+                    break;
+                }
+
+            }
+        }
+        if (direction == DOWN_LEFT) {
+            for (int i = 0; i < this.player.getTail().size() - 1; i++) {
+                if (this.player.getTail().get(i).getY() - this.player.getTail().get(i + 1).getY() == -1) {
+                    while (this.bord[startX-1][startY].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX-1][startY].setKind(Brick.FULL_BRICK);
+                        startX--;
+                    }
+                    startX=this.player.getTail().get(0).getX();
+                    startY++;
+
+                }
+                if (this.player.getTail().get(i).getX() != this.player.getTail().get(i + 1).getX()) {
+                    break;
+                }
+
+            }
+        }
+        if (direction == UP_LEFT) {
+            for (int i = 0; i < this.player.getTail().size() - 1; i++) {
+                if (this.player.getTail().get(i).getY() - this.player.getTail().get(i + 1).getY() == 1) {
+                    while (this.bord[startX-1][startY].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX-1][startY].setKind(Brick.FULL_BRICK);
+                        startX--;
+                    }
+                    startX=this.player.getTail().get(0).getX();
+                    startY--;
+
+                }
+                if (this.player.getTail().get(i).getX() != this.player.getTail().get(i + 1).getX()) {
+                    break;
+                }
+
+            }
+        }
+        if (direction == UP_RIGHT) {
+            for (int i = 0; i < this.player.getTail().size() - 1; i++) {
+                if (this.player.getTail().get(i).getY() - this.player.getTail().get(i + 1).getY() == 1) {
+                    while (this.bord[startX+1][startY].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX+1][startY].setKind(Brick.FULL_BRICK);
+                        startX++;
+                    }
+                    startX=this.player.getTail().get(0).getX();
+                    startY--;
+
+                }
+                if (this.player.getTail().get(i).getX() != this.player.getTail().get(i + 1).getX()) {
+                    break;
+                }
+
+            }
+        }
+    }
+
+
+//        public void completionTail () {
+//            int startX = this.player.getTail().get(0).getX();
+//            int startY = this.player.getTail().get(0).getY();
+//            int endX = this.player.getTail().get(this.player.getTail().size() - 1).getX();
+//            int endY = this.player.getTail().get(this.player.getTail().size() - 1).getY();
+//            if (startX > endX) {
+//                while (startX > endX) {
+//                    endY++;
+//                    Brick newBrick = new Brick(Brick.TEMP_BRICK, startX, endY);
+//                    this.player.getTail().add(newBrick);
+//                    this.bord[endX][endY]=newBrick;
 //                }
-//                startX++;
-//                startY = this.player.getTail().get(0).getY();
+//            }
+//            if (startX < endX) {
+//                while (startX < endX) {
+//                    endX--;
+//                    Brick newBrick = new Brick(Brick.TEMP_BRICK, endX, endY);
+//                    this.player.getTail().add(newBrick);
+//                }
+//            }
+//            if (startY > endY) {
+//                while (startY > endY) {
+//                    endY++;
+//                    Brick newBrick = new Brick(Brick.TEMP_BRICK, startX, endY);
+//                    this.player.getTail().add(newBrick);
+//                    this.bord[endX][endY] = newBrick;
+//                }
+//            }
+//            if (startY < endY) {
+//                while (startY < endY) {
+//                    endX++;
+//                    Brick newBrick = new Brick(Brick.TEMP_BRICK, endX, endY);
+//                    this.player.getTail().add(newBrick);
+//                    this.bord[endX][endY] = newBrick;
+//                }
 //            }
 //        }
 
 
-        }
-    }
 
     public int getDirection(){
         int directionUp=0,directionDown=0,directionRight=0,directionLeft=0;
