@@ -9,8 +9,6 @@ public class FramePanel extends JPanel {
     public FramePanel() {
         this.setBounds(0, 0, PANEL_WIDTH, PANEl_HEIGHT);
         this.setBackground(Color.BLUE);
-
-
     }
 }
 
