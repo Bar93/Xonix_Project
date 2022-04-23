@@ -495,7 +495,7 @@ public class GameScene extends JPanel {
                 }
         }
 
-        completionMissingPoints3 (direction);
+        completionMissingPoints ();
 }
 
 //    public void completionMissingPoints (int direction){
@@ -563,15 +563,19 @@ public class GameScene extends JPanel {
 //        }
 //    }
 
-    public void completionMissingPoints3 (int direction) {
+    public void completionMissingPoints () {
         int countAxisX = 0, countAxisY = 0;
         int indexX = 0, indexY = 0;
+        int minX = this.player.getMinTailX();
+        int minY = this.player.getMinTailY();
+        int maxX = this.player.getMaxTailX();
+        int maxY = this.player.getMaxTailY();
         for (int i = 1; i < this.bord.length - 1; i++) {
             for (int j = 1; j < this.bord.length - 1; j++) {
                 if (this.bord[i][j].getKind() == Brick.EMPTY_BRICK) {
                     indexX = i;
                     indexY = j;
-                    while (indexX > 0) {
+                    while (indexX > -1) {
                         if (this.bord[indexX][indexY].getKind() == Brick.FULL_BRICK) {
                             countAxisX++;
                             break;
@@ -586,7 +590,7 @@ public class GameScene extends JPanel {
                         }
                         indexX++;
                     }
-                    while ( indexY > 0) {
+                    while ( indexY > 2) {
                         if (this.bord[indexX][indexY].getKind() == Brick.FULL_BRICK) {
                             countAxisY++;
                             break;
@@ -594,7 +598,7 @@ public class GameScene extends JPanel {
                         indexY--;
                     }
                     indexY = j;
-                    while ( indexY < COL - 1) {
+                    while ( indexY < COL - 2) {
                         if (this.bord[indexX][indexY].getKind() == Brick.FULL_BRICK) {
                             countAxisY++;
                             break;
@@ -602,7 +606,9 @@ public class GameScene extends JPanel {
                         indexY++;
                     }
                     if (countAxisX == 2 && countAxisY == 2) {
-                        this.bord[i][j].setKind(Brick.FULL_BRICK);
+                        if (i>=maxX && i<=minX && j>=maxY && j<=minY) {
+                            this.bord[i][j].setKind(Brick.FULL_BRICK);
+                        }
                     }
                     countAxisX = 0;
                     countAxisY = 0;

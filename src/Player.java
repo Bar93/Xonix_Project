@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class Player extends Brick  {
@@ -47,10 +45,10 @@ public class Player extends Brick  {
     public void moveDown()
         {
             if (this.y < GameScene.GAME_SCENE_HEIGHT - 10) {
-                this.y += 10;
+                        this.y += 10;
 
+                }
             }
-        }
 
     public boolean isInMotion() {
         return inMotion;
@@ -123,6 +121,43 @@ public class Player extends Brick  {
 
     public void setDirection(int direction) {
         this.direction = direction;
+    }
+
+    public int getMaxTailX (){
+        int maxX=0;
+        for (int i=0;i<this.tail.size();i++){
+            if (this.tail.get(i).getX()>maxX){
+                maxX=this.tail.get(i).getX();
+            }
+        }
+        return maxX;
+    }
+    public int getMaxTailY (){
+        int maxY=0;
+        for (int i=0;i<this.tail.size();i++){
+            if (this.tail.get(i).getY()>maxY){
+                maxY=this.tail.get(i).getY();
+            }
+        }
+        return maxY;
+    }
+    public int getMinTailY (){
+        int minY =GameScene.COL;
+        for (int i=0;i<this.tail.size();i++){
+            if (this.tail.get(i).getX()< minY){
+                minY =this.tail.get(i).getY();
+            }
+        }
+        return minY;
+    }
+    public int getMinTailX (){
+        int minX =GameScene.ROW;
+        for (int i=0;i<this.tail.size();i++){
+            if (this.tail.get(i).getX()< minX){
+                minX =this.tail.get(i).getX();
+            }
+        }
+        return minX;
     }
 }
 
