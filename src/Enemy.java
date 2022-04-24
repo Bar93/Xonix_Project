@@ -58,7 +58,7 @@ public class Enemy {
             case CROSS_DOWN_RIGHT:
                 this.x += 10;
                 this.y += 10;
-                if (bord[x / 10][y / 10 + 1].getKind() == Brick.FULL_BRICK) {
+                if (bord[x / 10][y / 10 + 2].getKind() == Brick.FULL_BRICK) {
                     this.direction = CROSS_UP_LEFT;
                 }
                 if (bord[x / 10 + 1][y / 10].getKind() == Brick.FULL_BRICK) {

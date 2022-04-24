@@ -243,18 +243,15 @@ public class GameScene extends JPanel {
                         startY++;
                     }
 
-
                 }
                 if (this.player.getTail().get(i).getX() - this.player.getTail().get(i + 1).getX() == 1) {
                     while (this.bord[startX][startY-1].getKind() == Brick.EMPTY_BRICK) {
                         this.bord[startX][startY-1].setKind(Brick.FULL_BRICK);
                         startY--;
                     }
-
-                    startX = this.player.getTail().get(i).getX();
-                    startY = this.player.getTail().get(i).getY();
-
                 }
+                startX = this.player.getTail().get(i).getX();
+                startY = this.player.getTail().get(i).getY();
 
             }
         }
@@ -265,10 +262,19 @@ public class GameScene extends JPanel {
                         this.bord[startX][startY - 1].setKind(Brick.FULL_BRICK);
                         startY--;
                     }
+
+                }
+                if (this.player.getTail().get(i).getX() - this.player.getTail().get(i + 1).getX() == 1) {
+                    while (this.bord[startX][startY + 1].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX][startY + 1].setKind(Brick.FULL_BRICK);
+                        startY++;
+                    }
+                }
                     startX=this.player.getTail().get(i).getX();
                     startY = this.player.getTail().get(i).getY();
 
-                }
+
+
 
             }
         }
@@ -279,10 +285,18 @@ public class GameScene extends JPanel {
                         this.bord[startX][startY + 1].setKind(Brick.FULL_BRICK);
                         startY++;
                     }
+
+                }
+                if (this.player.getTail().get(i).getX() - this.player.getTail().get(i + 1).getX() == -1) {
+                    while (this.bord[startX][startY - 1].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX][startY - 1].setKind(Brick.FULL_BRICK);
+                        startY--;
+                    }
+                }
                     startX = this.player.getTail().get(i).getX();
                     startY = this.player.getTail().get(i).getY();
 
-                }
+
 
             }
         }
@@ -293,10 +307,18 @@ public class GameScene extends JPanel {
                         this.bord[startX][startY - 1].setKind(Brick.FULL_BRICK);
                         startY--;
                     }
+
+                }
+                if (this.player.getTail().get(i).getX() - this.player.getTail().get(i + 1).getX() == -1) {
+                    while (this.bord[startX][startY + 1].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX][startY + 1].setKind(Brick.FULL_BRICK);
+                        startY++;
+                    }
+                }
                     startX = this.player.getTail().get(i).getX();
                     startY = this.player.getTail().get(i).getY();
 
-                }
+
 
 
             }
@@ -308,10 +330,9 @@ public class GameScene extends JPanel {
                         this.bord[startX + 1][startY].setKind(Brick.FULL_BRICK);
                         startX++;
                     }
+                }
                     startX = this.player.getTail().get(i).getX();
                     startY++;
-
-                }
 
             }
         }
@@ -726,6 +747,7 @@ public class GameScene extends JPanel {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("AirXonix_Music.wav").getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
+            clip.loop(10);
             clip.start();
         } catch(Exception ex) {
             System.out.println("Error with playing sound.");
