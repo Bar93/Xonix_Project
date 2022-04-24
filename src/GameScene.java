@@ -10,7 +10,7 @@ public class GameScene extends JPanel {
     private Player player;
     private Enemy enemy;
     private Brick[][] bord;
-    ImageIcon finishImage;
+    private ImageIcon finishImage;
 
 
     public static final int GAME_SCENE_WIDTH = 600;
@@ -242,13 +242,20 @@ public class GameScene extends JPanel {
                         this.bord[startX][startY+1].setKind(Brick.FULL_BRICK);
                         startY++;
                     }
-                    startX++;
-                    startY = this.player.getTail().get(0).getY();
+
 
                 }
-                if (this.player.getTail().get(i).getY() != this.player.getTail().get(i + 1).getY()) {
-                    break;
+                if (this.player.getTail().get(i).getX() - this.player.getTail().get(i + 1).getX() == 1) {
+                    while (this.bord[startX][startY-1].getKind() == Brick.EMPTY_BRICK) {
+                        this.bord[startX][startY-1].setKind(Brick.FULL_BRICK);
+                        startY--;
+                    }
+
+                    startX = this.player.getTail().get(i).getX();
+                    startY = this.player.getTail().get(i).getY();
+
                 }
+
             }
         }
         if (direction == DRAW_RIGHT_UP) {
@@ -258,12 +265,9 @@ public class GameScene extends JPanel {
                         this.bord[startX][startY - 1].setKind(Brick.FULL_BRICK);
                         startY--;
                     }
-                    startX++;
-                    startY = this.player.getTail().get(0).getY();
+                    startX=this.player.getTail().get(i).getX();
+                    startY = this.player.getTail().get(i).getY();
 
-                }
-                if (this.player.getTail().get(i).getY() != this.player.getTail().get(i + 1).getY()) {
-                    break;
                 }
 
             }
@@ -275,12 +279,9 @@ public class GameScene extends JPanel {
                         this.bord[startX][startY + 1].setKind(Brick.FULL_BRICK);
                         startY++;
                     }
-                    startX--;
-                    startY = this.player.getTail().get(0).getY();
+                    startX = this.player.getTail().get(i).getX();
+                    startY = this.player.getTail().get(i).getY();
 
-                }
-                if (this.player.getTail().get(i).getY() != this.player.getTail().get(i + 1).getY()) {
-                    break;
                 }
 
             }
@@ -292,13 +293,11 @@ public class GameScene extends JPanel {
                         this.bord[startX][startY - 1].setKind(Brick.FULL_BRICK);
                         startY--;
                     }
-                    startX--;
-                    startY = this.player.getTail().get(0).getY();
+                    startX = this.player.getTail().get(i).getX();
+                    startY = this.player.getTail().get(i).getY();
 
                 }
-                if (this.player.getTail().get(i).getY() != this.player.getTail().get(i + 1).getY()) {
-                    break;
-                }
+
 
             }
         }
@@ -309,12 +308,9 @@ public class GameScene extends JPanel {
                         this.bord[startX + 1][startY].setKind(Brick.FULL_BRICK);
                         startX++;
                     }
-                    startX = this.player.getTail().get(0).getX();
+                    startX = this.player.getTail().get(i).getX();
                     startY++;
 
-                }
-                if (this.player.getTail().get(i).getX() != this.player.getTail().get(i + 1).getX()) {
-                    break;
                 }
 
             }
@@ -326,12 +322,9 @@ public class GameScene extends JPanel {
                         this.bord[startX - 1][startY].setKind(Brick.FULL_BRICK);
                         startX--;
                     }
-                    startX = this.player.getTail().get(0).getX();
+                    startX = this.player.getTail().get(i).getX();
                     startY++;
 
-                }
-                if (this.player.getTail().get(i).getX() != this.player.getTail().get(i + 1).getX()) {
-                    break;
                 }
 
             }
@@ -343,12 +336,9 @@ public class GameScene extends JPanel {
                         this.bord[startX - 1][startY].setKind(Brick.FULL_BRICK);
                         startX--;
                     }
-                    startX = this.player.getTail().get(0).getX();
+                    startX = this.player.getTail().get(i).getX();
                     startY--;
 
-                }
-                if (this.player.getTail().get(i).getX() != this.player.getTail().get(i + 1).getX()) {
-                    break;
                 }
 
             }
@@ -360,14 +350,10 @@ public class GameScene extends JPanel {
                         this.bord[startX + 1][startY].setKind(Brick.FULL_BRICK);
                         startX++;
                     }
-                    startX = this.player.getTail().get(0).getX();
+                    startX = this.player.getTail().get(i).getX();
                     startY--;
 
                 }
-                if (this.player.getTail().get(i).getX() != this.player.getTail().get(i + 1).getX()) {
-                    break;
-                }
-
             }
         }
         if (direction == DRAW_UP) {
@@ -495,128 +481,7 @@ public class GameScene extends JPanel {
                 }
         }
 
-        completionMissingPoints ();
 }
-
-//    public void completionMissingPoints (int direction){
-//        int startX = this.player.getTail().get(0).getX();
-//        int startY = this.player.getTail().get(0).getY();
-//        int endX = this.player.getTail().get(this.player.getTail().size() - 1).getX();
-//        int endY = this.player.getTail().get(this.player.getTail().size() - 1).getY();
-////         if (direction == DRAW_RIGHT_UP || direction == DRAW_RIGHT_DOWN )
-////         {
-////             startX=0;
-////         }
-////        if (direction == DRAW_LEFT_DOWN || direction == DRAW_LEFT_UP )
-////        {
-////            startX=ROW-1;
-////        }
-//
-//        for (int i=1;i<this.bord.length-1;i++){
-//            for (int j=1;j<this.bord.length-1;j++){
-//                if (this.bord[i][j].getKind()==Brick.EMPTY_BRICK){
-//                    if ((this.bord[i][j].getX()>=startX && this.bord[i][j].getX()<=endX) || (this.bord[i][j].getX()<=startX && this.bord[i][j].getX()>=endX)){
-//                        if ((this.bord[i][j].getY()>=startY && this.bord[i][j].getY()<=endY) || (this.bord[i][j].getY()<=startY && this.bord[i][j].getY()>=endY)){
-//                            this.bord[i][j].setKind(Brick.FULL_BRICK);
-//                        }
-//
-//                        }
-//                }
-//
-//            }
-//        }
-//    }
-//
-//    public void completionMissingPoints2 (int direction) {
-//        int countTempBrickAxisX = 0, countTempBrickAxisY = 0;
-//        int indexX = 0, indexY = 0;
-//        for (int i = 0; i < this.bord.length; i++) {
-//            for (int j = 0; j < this.bord.length; j++) {
-//                if (this.bord[i][j].getKind() == Brick.EMPTY_BRICK) {
-//                    for (int z = 0; z < this.player.getTail().size(); z++) {
-//                        if (this.bord[i][j].getX() == this.player.getTail().get(z).getX()) {
-//                            countTempBrickAxisX++;
-//                            break;
-//                        }
-//                    }
-//                    for (int k = 0; k < this.player.getTail().size(); k++) {
-//                        if (this.bord[i][j].getY() == this.player.getTail().get(k).getY()) {
-//                            countTempBrickAxisY++;
-//                            break;
-//
-//                        }
-//                    }
-//                    if (countTempBrickAxisX == 1 && countTempBrickAxisY == 1) {
-//                        switch (direction) {
-//                            case DRAW_RIGHT_DOWN: {
-//                                    this.bord[i][j].setKind(Brick.FULL_BRICK);
-//                                }
-//                            }
-//
-//                        }
-//
-//                    countTempBrickAxisX = 0;
-//                    countTempBrickAxisY = 0;
-//
-//                }
-//            }
-//        }
-//    }
-
-    public void completionMissingPoints () {
-        int countAxisX = 0, countAxisY = 0;
-        int indexX = 0, indexY = 0;
-        int minX = this.player.getMinTailX();
-        int minY = this.player.getMinTailY();
-        int maxX = this.player.getMaxTailX();
-        int maxY = this.player.getMaxTailY();
-        for (int i = 1; i < this.bord.length - 1; i++) {
-            for (int j = 1; j < this.bord.length - 1; j++) {
-                if (this.bord[i][j].getKind() == Brick.EMPTY_BRICK) {
-                    indexX = i;
-                    indexY = j;
-                    while (indexX > -1) {
-                        if (this.bord[indexX][indexY].getKind() == Brick.FULL_BRICK) {
-                            countAxisX++;
-                            break;
-                        }
-                        indexX--;
-                    }
-                    indexX = i;
-                    while ( indexX < ROW - 1) {
-                        if (this.bord[indexX][indexY].getKind() == Brick.FULL_BRICK) {
-                            countAxisX++;
-                            break;
-                        }
-                        indexX++;
-                    }
-                    while ( indexY > 2) {
-                        if (this.bord[indexX][indexY].getKind() == Brick.FULL_BRICK) {
-                            countAxisY++;
-                            break;
-                        }
-                        indexY--;
-                    }
-                    indexY = j;
-                    while ( indexY < COL - 2) {
-                        if (this.bord[indexX][indexY].getKind() == Brick.FULL_BRICK) {
-                            countAxisY++;
-                            break;
-                        }
-                        indexY++;
-                    }
-                    if (countAxisX == 2 && countAxisY == 2) {
-                        if (i>=maxX && i<=minX && j>=maxY && j<=minY) {
-                            this.bord[i][j].setKind(Brick.FULL_BRICK);
-                        }
-                    }
-                    countAxisX = 0;
-                    countAxisY = 0;
-                }
-            }
-        }
-    }
-
 
     public int getDirection(){
         int direction = 0;

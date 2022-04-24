@@ -17,10 +17,11 @@ public class Brick extends Component {
 
 
 
-    public Brick(int kind, int x, int y) {
+    public Brick(int kind, int x, int y ) {
         this.kind = kind;
         this.x = x;
         this.y = y;
+
 
 
     }
@@ -78,4 +79,6 @@ public class Brick extends Component {
     public void setImageBrick(ImageIcon imageBrick) {
         this.imageBrick = imageBrick;
     }
+
+
 }

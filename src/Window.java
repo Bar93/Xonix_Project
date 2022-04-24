@@ -16,8 +16,8 @@ public class Window extends JFrame {
         this.add(frame);
         this.add(game);
         JLabel score = new JLabel();
-        score.setBounds(0, 0, 600, 40);
-        Font font = new Font("Arial", Font.BOLD, 20);
+        score.setBounds(0, 0, FramePanel.PANEL_WIDTH, FramePanel.PANEl_HEIGHT);
+        Font font = new Font("Arial", Font.BOLD, FramePanel.PANEl_HEIGHT/2);
         score.setForeground(Color.RED);
         score.setFont(font);
         frame.add(score);
@@ -25,7 +25,7 @@ public class Window extends JFrame {
             int areaPercent;
             while (true) {
                 areaPercent= (int) game.calculateArea();
-                score.setText("score:"+areaPercent+"% / 60%");
+                score.setText("score:"+areaPercent+"% /"+GameScene.LEVEL_ONE+"%");
                 frame.add(score);
                 try {
                     Thread.sleep(1000);

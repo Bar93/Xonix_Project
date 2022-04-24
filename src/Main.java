@@ -1,4 +1,3 @@
-//todo -,direction,תווית לאחוזים,  תזוזת אויב+שחקן, מילוי שטחים, כפתור ריסט, מוזיקה, gameOver
 
 public class Main {
 

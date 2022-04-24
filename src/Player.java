@@ -19,7 +19,7 @@ public class Player extends Brick  {
 
 
     public Player(int kind, int x, int y) {
-        super(kind, x, y);
+        super(kind,x,y);
         inMotion = false;
         tail = new ArrayList<>();
 
